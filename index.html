@@ -696,6 +696,68 @@
             flex-wrap: wrap;
         }
 
+        /* Resources Section */
+        .resource-category {
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(108, 92, 231, 0.1);
+            display: block;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.3);
+            border-color: var(--accent-primary);
+        }
+
+        .resource-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .resource-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
         /* Container */
         .container {
             max-width: 1400px;
@@ -1118,6 +1180,8 @@
             <ul class="nav-menu">
                 <li><button class="nav-btn active" onclick="showSection('games')" id="nav-games">Matematik
                         Oyunları</button></li>
+                <li><button class="nav-btn" onclick="showSection('kaynaklar')" id="nav-kaynaklar">Kaynaklar</button>
+                </li>
                 <li><button class="nav-btn" onclick="showSection('settings')" id="nav-settings">Ayarlar</button></li>
             </ul>
         </div>
@@ -1411,6 +1475,142 @@
                         <button class="check-btn" onclick="restartTest()">🔄 Yeni Test</button>
                         <button class="back-btn" onclick="showSection('games')">← Ana Menü</button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kaynaklar Section -->
+        <section id="kaynaklar-section" class="page-section">
+            <h1 class="section-title">Matematik Kaynakları</h1>
+            <div class="settings-container">
+                <!-- YouTube Channels -->
+                <div class="resource-category">
+                    <h2 class="category-title">📺 YouTube Kanalları</h2>
+                    <div class="resources-grid">
+                        <a href="https://www.youtube.com/@TonguçAkademi" target="_blank" class="resource-card">
+                            <div class="resource-icon">🎓</div>
+                            <h3 class="resource-name">Tonguç Akademi</h3>
+                            <p class="resource-desc">10. sınıf matematik dersleri ve soru çözümleri</p>
+                        </a>
+                        <a href="https://www.youtube.com/@KhanAcademyTurkce" target="_blank" class="resource-card">
+                            <div class="resource-icon">📚</div>
+                            <h3 class="resource-name">Khan Academy Türkçe</h3>
+                            <p class="resource-desc">Ücretsiz, kapsamlı matematik eğitimi</p>
+                        </a>
+                        <a href="https://www.youtube.com/@MatematikKafe" target="_blank" class="resource-card">
+                            <div class="resource-icon">☕</div>
+                            <h3 class="resource-name">Matematik Kafe</h3>
+                            <p class="resource-desc">Trigonometri ve geometri konuları</p>
+                        </a>
+                        <a href="https://www.youtube.com/@UnicornAkademi" target="_blank" class="resource-card">
+                            <div class="resource-icon">🦄</div>
+                            <h3 class="resource-name">Unicorn Akademi</h3>
+                            <p class="resource-desc">Lise matematik dersleri ve sınav hazırlık</p>
+                        </a>
+                        <a href="https://www.youtube.com/@AytMatematik" target="_blank" class="resource-card">
+                            <div class="resource-icon">🎯</div>
+                            <h3 class="resource-name">AYT Matematik</h3>
+                            <p class="resource-desc">AYT matematik soru çözümleri</p>
+                        </a>
+                        <a href="https://www.youtube.com/@MatematikOgretmeni" target="_blank" class="resource-card">
+                            <div class="resource-icon">👨‍🏫</div>
+                            <h3 class="resource-name">Matematik Öğretmeni</h3>
+                            <p class="resource-desc">Konu anlatımları ve pratik çözümler</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Websites -->
+                <div class="resource-category">
+                    <h2 class="category-title">🌐 Web Siteleri</h2>
+                    <div class="resources-grid">
+                        <a href="https://www.eba.gov.tr" target="_blank" class="resource-card">
+                            <div class="resource-icon">🏫</div>
+                            <h3 class="resource-name">EBA</h3>
+                            <p class="resource-desc">MEB'in resmi eğitim platformu</p>
+                        </a>
+                        <a href="https://www.khanacademy.org/tr" target="_blank" class="resource-card">
+                            <div class="resource-icon">🎓</div>
+                            <h3 class="resource-name">Khan Academy TR</h3>
+                            <p class="resource-desc">İnteraktif matematik dersleri</p>
+                        </a>
+                        <a href="https://www.matematikkolay.net" target="_blank" class="resource-card">
+                            <div class="resource-icon">✨</div>
+                            <h3 class="resource-name">Matematik Kolay</h3>
+                            <p class="resource-desc">Konu anlatımları ve testler</p>
+                        </a>
+                        <a href="https://www.morpakampus.com" target="_blank" class="resource-card">
+                            <div class="resource-icon">🎨</div>
+                            <h3 class="resource-name">MorpaKampüs</h3>
+                            <p class="resource-desc">Etkileşimli matematik oyunları</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile Apps -->
+                <div class="resource-category">
+                    <h2 class="category-title">📱 Mobil Uygulamalar</h2>
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <div class="resource-icon">📐</div>
+                            <h3 class="resource-name">Photomath</h3>
+                            <p class="resource-desc">Fotoğrafla soru çözme ve adım adım çözüm</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">🧮</div>
+                            <h3 class="resource-name">Microsoft Math Solver</h3>
+                            <p class="resource-desc">Matematik problemleri için AI destekli çözümler</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">📊</div>
+                            <h3 class="resource-name">GeoGebra</h3>
+                            <p class="resource-desc">Geometri ve grafik çizim uygulaması</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">🎯</div>
+                            <h3 class="resource-name">Kunduz</h3>
+                            <p class="resource-desc">Canlı öğretmen desteği ve soru çözümü</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Books & PDFs -->
+                <div class="resource-category">
+                    <h2 class="category-title">📖 Kitaplar & Dökümanlar</h2>
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <div class="resource-icon">📕</div>
+                            <h3 class="resource-name">MEB Ders Kitapları</h3>
+                            <p class="resource-desc">10. sınıf matematik ders kitabı (PDF)</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">📗</div>
+                            <h3 class="resource-name">Palme Yayınları</h3>
+                            <p class="resource-desc">Soru bankası ve konu anlatımlı kitaplar</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">📘</div>
+                            <h3 class="resource-name">Limit Yayınları</h3>
+                            <p class="resource-desc">AYT matematik kaynak kitapları</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">📙</div>
+                            <h3 class="resource-name">3D Yayınları</h3>
+                            <p class="resource-desc">Trigonometri özel ders notları</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="hint-card" style="margin-top: 2rem;">
+                    <h4>💡 Verimli Çalışma İpuçları:</h4>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>Her gün düzenli olarak 30-45 dakika çalışın</li>
+                        <li>Önce konu anlatımlarını izleyin, sonra soru çözün</li>
+                        <li>Anlamadığınız konuları farklı kaynaklardan tekrar edin</li>
+                        <li>Bol bol pratik yapın - matematik pratikle öğrenilir!</li>
+                        <li>Hata yaptığınız soruları not alın ve tekrar çözün</li>
+                    </ul>
                 </div>
             </div>
         </section>
