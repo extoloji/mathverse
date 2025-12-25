@@ -585,6 +585,117 @@
             font-family: 'Courier New', monospace;
         }
 
+        /* Test Results */
+        .test-results {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .results-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .result-stat {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .results-details {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .result-item {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid;
+        }
+
+        .result-item.correct {
+            background: rgba(46, 213, 115, 0.1);
+            border-color: #2ed573;
+        }
+
+        .result-item.incorrect {
+            background: rgba(255, 71, 87, 0.1);
+            border-color: #ff4757;
+        }
+
+        .result-question {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .result-answer {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .answer-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .answer-value {
+            font-weight: 700;
+        }
+
+        .answer-value.correct {
+            color: #2ed573;
+        }
+
+        .answer-value.incorrect {
+            color: #ff4757;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         /* Container */
         .container {
             max-width: 1400px;
@@ -1046,7 +1157,7 @@
                 <div class="game-card" onclick="openTopic('ozel-ucgen')">
                     <div class="game-icon">△</div>
                     <h3 class="game-title">Özel Üçgenler</h3>
-                    <p class="game-description">30-60-90 ve 45-45-90 özel üçgenlerini keşfedin!</p>
+                    <p class="game-description">3-4-5, 5-12-13, 8-15-17 gibi Pisagor üçlülerini öğrenin!</p>
                 </div>
                 <div class="game-card" onclick="openTopic('trigonometri')">
                     <div class="game-icon">🎯</div>
@@ -1057,6 +1168,11 @@
                     <div class="game-icon">📐</div>
                     <h3 class="game-title">Üçgen Çözümleri</h3>
                     <p class="game-description">Dik üçgenlerde kenar ve açı hesaplama problemleri!</p>
+                </div>
+                <div class="game-card" onclick="openTopic('genel-test')">
+                    <div class="game-icon">📝</div>
+                    <h3 class="game-title">Genel Matematik Testi</h3>
+                    <p class="game-description">Tüm konulardan karma sorular! Sonunda detaylı sonuç raporu.</p>
                 </div>
             </div>
         </section>
@@ -1180,7 +1296,7 @@
         <section id="special-triangle-game" class="page-section">
             <div class="game-container">
                 <button class="back-btn" onclick="showSection('games')">← Geri Dön</button>
-                <h1 class="section-title">Özel Üçgenler Testi</h1>
+                <h1 class="section-title">Pisagor Üçlüleri Testi</h1>
                 <div class="game-content">
                     <div class="score-board">
                         <div class="score-item">Skor: <span id="triangle-score">0</span></div>
@@ -1197,11 +1313,14 @@
                             id="triangle-next">Sonraki Soru →</button>
                     </div>
                     <div class="hint-card">
-                        <h4>📐 Özel Üçgen Oranları:</h4>
-                        <p><strong>30-60-90 Üçgeni:</strong></p>
-                        <p>Kenar oranları → 1 : √3 : 2</p>
-                        <p><strong>45-45-90 Üçgeni:</strong></p>
-                        <p>Kenar oranları → 1 : 1 : √2</p>
+                        <h4>📐 Pisagor Üçlüleri (Özel Üçgenler):</h4>
+                        <p><strong>3-4-5 Üçgeni:</strong> 3² + 4² = 5² → 9 + 16 = 25 ✓</p>
+                        <p><strong>5-12-13 Üçgeni:</strong> 5² + 12² = 13² → 25 + 144 = 169 ✓</p>
+                        <p><strong>8-15-17 Üçgeni:</strong> 8² + 15² = 17² → 64 + 225 = 289 ✓</p>
+                        <p><strong>7-24-25 Üçgeni:</strong> 7² + 24² = 25² → 49 + 576 = 625 ✓</p>
+                        <p style="margin-top: 1rem; font-style: italic; color: var(--text-secondary);">
+                            Bu üçgenler Pisagor teoremini sağlayan özel tam sayı üçlüleridir.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1232,6 +1351,65 @@
                         <p>Dik üçgende: <strong>a² + b² = c²</strong></p>
                         <p>a, b: Dik kenarlar</p>
                         <p>c: Hipotenüs (en uzun kenar)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comprehensive Test Game -->
+        <section id="genel-test-game" class="page-section">
+            <div class="game-container">
+                <button class="back-btn" onclick="showSection('games')">← Geri Dön</button>
+                <h1 class="section-title">Genel Matematik Testi</h1>
+                <div class="game-content">
+                    <div class="score-board">
+                        <div class="score-item">Soru: <span id="test-current">1</span> / <span
+                                id="test-total-questions">10</span></div>
+                        <div class="score-item">Süre: <span id="test-timer">00:00</span></div>
+                    </div>
+                    <div class="question-card" id="test-question-card">
+                        <h3 class="question-text" id="test-question">Test başlatılıyor...</h3>
+                        <div class="options-container" id="test-options">
+                            <!-- Options will be inserted here -->
+                        </div>
+                        <button class="next-btn" onclick="nextTestQuestion()" style="display:none;"
+                            id="test-next">Sonraki Soru →</button>
+                    </div>
+                    <div class="hint-card">
+                        <h4>📝 Test Hakkında:</h4>
+                        <p>Bu test EBOB, EKOK, Trigonometri, Pisagor Üçlüleri ve Dik Üçgen konularından 10 soru içerir.
+                        </p>
+                        <p><strong>Test bitiminde:</strong> Tüm sorularınızı, cevaplarınızı ve doğru cevapları
+                            görebileceksiniz.</p>
+                    </div>
+                </div>
+                <!-- Results Screen -->
+                <div class="test-results" id="test-results" style="display:none;">
+                    <h2 class="results-title">Test Sonuçları</h2>
+                    <div class="results-summary">
+                        <div class="result-stat">
+                            <div class="stat-value" id="result-score">0</div>
+                            <div class="stat-label">Puan</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="stat-value" id="result-correct">0</div>
+                            <div class="stat-label">Doğru</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="stat-value" id="result-wrong">0</div>
+                            <div class="stat-label">Yanlış</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="stat-value" id="result-time">00:00</div>
+                            <div class="stat-label">Süre</div>
+                        </div>
+                    </div>
+                    <div class="results-details" id="results-details">
+                        <!-- Detailed results will be inserted here -->
+                    </div>
+                    <div class="results-actions">
+                        <button class="check-btn" onclick="restartTest()">🔄 Yeni Test</button>
+                        <button class="back-btn" onclick="showSection('games')">← Ana Menü</button>
                     </div>
                 </div>
             </div>
@@ -1382,7 +1560,8 @@
                 'tan': 'trig-game',
                 'ozel-ucgen': 'special-triangle-game',
                 'trigonometri': 'trig-game',
-                'ucgen-cozum': 'triangle-solution-game'
+                'ucgen-cozum': 'triangle-solution-game',
+                'genel-test': 'genel-test-game'
             };
 
             const gamePage = gameMap[topic];
@@ -1405,6 +1584,8 @@
                 } else if (topic === 'ucgen-cozum') {
                     resetSolutionGame();
                     generateSolutionQuestion();
+                } else if (topic === 'genel-test') {
+                    resetComprehensiveTest();
                 }
             }
         }
@@ -1691,12 +1872,18 @@
             document.getElementById('triangle-feedback').className = 'feedback';
 
             const questions = [
-                { q: '30-60-90 üçgeninde kenar oranları nedir?', a: '1 : √3 : 2', opts: ['1 : √3 : 2', '1 : 1 : √2', '1 : 2 : √3', '√2 : √2 : 2'] },
-                { q: '45-45-90 üçgeninde kenar oranları nedir?', a: '1 : 1 : √2', opts: ['1 : 1 : √2', '1 : √3 : 2', '1 : 2 : 3', '√3 : √3 : 2'] },
-                { q: '30-60-90 üçgeninde kısa kenar 4 ise hipotenüs kaçtır?', a: '8', opts: ['8', '4√2', '4√3', '12'] },
-                { q: '45-45-90 üçgeninde dik kenar 5 ise hipotenüs kaçtır?', a: '5√2', opts: ['5√2', '10', '5√3', '5'] },
-                { q: '30-60-90 üçgeninde kısa kenar 6 ise uzun kenar kaçtır?', a: '6√3', opts: ['6√3', '12', '6√2', '9'] },
-                { q: '45-45-90 üçgeninde hipotenüs 10 ise dik kenar kaçtır?', a: '5√2', opts: ['5√2', '5', '10√2', '10'] }
+                { q: '3-4-5 üçgeninde hangi kenar hipotenüstür?', a: '5', opts: ['5', '4', '3', '7'] },
+                { q: '5-12-13 üçgeninde hipotenüs kaçtır?', a: '13', opts: ['13', '12', '5', '17'] },
+                { q: '8-15-17 üçgeninde en uzun kenar kaçtır?', a: '17', opts: ['17', '15', '8', '23'] },
+                { q: 'Dik kenarları 3 ve 4 olan üçgenin hipotenüsü kaçtır?', a: '5', opts: ['5', '7', '6', '4'] },
+                { q: 'Dik kenarları 5 ve 12 olan üçgenin hipotenüsü kaçtır?', a: '13', opts: ['13', '17', '15', '14'] },
+                { q: 'Dik kenarları 8 ve 15 olan üçgenin hipotenüsü kaçtır?', a: '17', opts: ['17', '23', '19', '16'] },
+                { q: '7-24-25 üçgeninde hipotenüs kaçtır?', a: '25', opts: ['25', '24', '7', '31'] },
+                { q: 'Hangi üçlü bir Pisagor üçlüsüdür?', a: '3-4-5', opts: ['3-4-5', '2-3-4', '4-5-6', '5-6-7'] },
+                { q: 'Hangi üçlü bir Pisagor üçlüsüdür?', a: '5-12-13', opts: ['5-12-13', '6-8-9', '7-9-11', '4-6-8'] },
+                { q: '3-4-5 üçgeninin katları olan 6-8-? üçgeninde hipotenüs kaçtır?', a: '10', opts: ['10', '12', '14', '9'] },
+                { q: '3-4-5 üçgeninin 2 katı olan üçgende en büyük kenar kaçtır?', a: '10', opts: ['10', '8', '6', '12'] },
+                { q: 'Dik kenarları 7 ve 24 olan üçgenin hipotenüsü kaçtır?', a: '25', opts: ['25', '31', '26', '23'] }
             ];
 
             const selected = questions[Math.floor(Math.random() * questions.length)];
@@ -1824,6 +2011,179 @@
             }
 
             document.getElementById('solution-next').style.display = 'block';
+        }
+
+        // Comprehensive Test Game
+        let testQuestions = [];
+        let testCurrentIndex = 0;
+        let testAnswers = [];
+        let testStartTime = 0;
+        let testTimerInterval = null;
+
+        function resetComprehensiveTest() {
+            testQuestions = [];
+            testCurrentIndex = 0;
+            testAnswers = [];
+            testStartTime = Date.now();
+
+            // Generate 10 random questions from all topics
+            const allQuestions = [
+                // EBOB questions
+                { q: '24 ve 36 sayılarının EBOB\'u kaçtır?', a: '12', opts: ['12', '6', '8', '18'], topic: 'EBOB' },
+                { q: '18 ve 30 sayılarının EBOB\'u kaçtır?', a: '6', opts: ['6', '9', '3', '12'], topic: 'EBOB' },
+                { q: '15 ve 25 sayılarının en büyük ortak böleni nedir?', a: '5', opts: ['5', '15', '10', '25'], topic: 'EBOB' },
+
+                // EKOK questions
+                { q: '4 ve 6 sayılarının EKOK\'u kaçtır?', a: '12', opts: ['12', '24', '6', '18'], topic: 'EKOK' },
+                { q: '6 ve 8 sayılarının EKOK\'u kaçtır?', a: '24', opts: ['24', '48', '12', '16'], topic: 'EKOK' },
+                { q: '5 ve 7 sayılarının en küçük ortak katı nedir?', a: '35', opts: ['35', '12', '70', '42'], topic: 'EKOK' },
+
+                // Trigonometry questions
+                { q: 'sin(30°) değeri kaçtır?', a: '1/2', opts: ['1/2', '√2/2', '√3/2', '1'], topic: 'Trigonometri' },
+                { q: 'cos(60°) değeri kaçtır?', a: '1/2', opts: ['1/2', '√3/2', '√2/2', '0'], topic: 'Trigonometri' },
+                { q: 'tan(45°) değeri kaçtır?', a: '1', opts: ['1', '√3', '0', '1/2'], topic: 'Trigonometri' },
+                { q: 'sin(90°) değeri kaçtır?', a: '1', opts: ['1', '0', '1/2', '√2/2'], topic: 'Trigonometri' },
+
+                // Pythagorean triples
+                { q: '3-4-5 üçgeninde hipotenüs kaçtır?', a: '5', opts: ['5', '4', '3', '6'], topic: 'Özel Üçgenler' },
+                { q: '5-12-13 üçgeninde hipotenüs kaçtır?', a: '13', opts: ['13', '12', '17', '15'], topic: 'Özel Üçgenler' },
+                { q: 'Dik kenarları 3 ve 4 olan üçgenin hipotenüsü kaçtır?', a: '5', opts: ['5', '7', '6', '4'], topic: 'Özel Üçgenler' },
+
+                // Pythagorean theorem
+                { q: 'Dik kenarları 6 ve 8 olan üçgenin hipotenüsü kaçtır?', a: '10', opts: ['10', '14', '12', '16'], topic: 'Pisagor' },
+                { q: 'Dik kenarları 5 ve 12 olan üçgenin hipotenüsü kaçtır?', a: '13', opts: ['13', '17', '15', '14'], topic: 'Pisagor' }
+            ];
+
+            // Shuffle and select 10 questions
+            testQuestions = shuffle([...allQuestions]).slice(0, 10);
+            testAnswers = new Array(10).fill(null);
+
+            // Start timer
+            if (testTimerInterval) clearInterval(testTimerInterval);
+            testTimerInterval = setInterval(updateTestTimer, 1000);
+
+            // Show first question
+            document.getElementById('test-results').style.display = 'none';
+            document.getElementById('test-question-card').style.display = 'block';
+            document.querySelector('#genel-test-game .hint-card').style.display = 'block';
+            showTestQuestion();
+        }
+
+        function updateTestTimer() {
+            const elapsed = Math.floor((Date.now() - testStartTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('test-timer').textContent =
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function showTestQuestion() {
+            if (testCurrentIndex >= testQuestions.length) {
+                showTestResults();
+                return;
+            }
+
+            const question = testQuestions[testCurrentIndex];
+            document.getElementById('test-current').textContent = testCurrentIndex + 1;
+            document.getElementById('test-total-questions').textContent = testQuestions.length;
+            document.getElementById('test-question').textContent = question.q;
+
+            const optionsHtml = question.opts.map(opt =>
+                `<button class="option-btn" onclick="selectTestAnswer('${opt}')">${opt}</button>`
+            ).join('');
+            document.getElementById('test-options').innerHTML = optionsHtml;
+            document.getElementById('test-next').style.display = 'none';
+        }
+
+        function selectTestAnswer(selected) {
+            testAnswers[testCurrentIndex] = selected;
+
+            // Disable all buttons
+            const buttons = document.querySelectorAll('#test-options .option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                btn.onclick = null;
+                if (btn.textContent === selected) {
+                    btn.classList.add('selected');
+                }
+            });
+
+            document.getElementById('test-next').style.display = 'block';
+        }
+
+        function nextTestQuestion() {
+            testCurrentIndex++;
+            showTestQuestion();
+        }
+
+        function showTestResults() {
+            if (testTimerInterval) {
+                clearInterval(testTimerInterval);
+                testTimerInterval = null;
+            }
+
+            // Calculate results
+            let correctCount = 0;
+            let score = 0;
+
+            testQuestions.forEach((q, i) => {
+                if (testAnswers[i] === q.a) {
+                    correctCount++;
+                    score += 10;
+                }
+            });
+
+            const wrongCount = testQuestions.length - correctCount;
+            const elapsed = Math.floor((Date.now() - testStartTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            const timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            // Update summary
+            document.getElementById('result-score').textContent = score;
+            document.getElementById('result-correct').textContent = correctCount;
+            document.getElementById('result-wrong').textContent = wrongCount;
+            document.getElementById('result-time').textContent = timeStr;
+
+            // Generate detailed results
+            let detailsHtml = '';
+            testQuestions.forEach((q, i) => {
+                const userAnswer = testAnswers[i] || 'Cevaplanmadı';
+                const isCorrect = testAnswers[i] === q.a;
+                const itemClass = isCorrect ? 'correct' : 'incorrect';
+                const icon = isCorrect ? '✅' : '❌';
+
+                detailsHtml += `
+                    <div class="result-item ${itemClass}">
+                        <div class="result-question">${icon} Soru ${i + 1}: ${q.q}</div>
+                        <div class="result-answer">
+                            <div>
+                                <span class="answer-label">Sizin Cevabınız:</span>
+                                <span class="answer-value ${itemClass}">${userAnswer}</span>
+                            </div>
+                            <div>
+                                <span class="answer-label">Doğru Cevap:</span>
+                                <span class="answer-value correct">${q.a}</span>
+                            </div>
+                            <div>
+                                <span class="answer-label">Konu:</span>
+                                <span class="answer-value">${q.topic}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('results-details').innerHTML = detailsHtml;
+
+            // Hide question card, show results
+            document.getElementById('test-question-card').style.display = 'none';
+            document.querySelector('#genel-test-game .hint-card').style.display = 'none';
+            document.getElementById('test-results').style.display = 'block';
+        }
+
+        function restartTest() {
+            resetComprehensiveTest();
         }
 
         // Helper to generate unique options
