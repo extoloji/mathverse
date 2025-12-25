@@ -1,407 +1,1844 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MathVerse Pro | Matematik Oyun Portalı</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
+    <title>Oyun Portalı - Ana Sayfa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
-        :root {
-            --accent: #4ED8A1; /* modern mint */
-            --accent-2: #7DD3FC; /* secondary light */
-            --bg-start: #071029;
-            --bg-end: #071827;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --muted: rgba(255,255,255,0.7);
-            --glass: rgba(255,255,255,0.04);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        :root {
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8d1;
+            --accent-primary: #6c5ce7;
+            --accent-secondary: #a29bfe;
+            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border-radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        html, body { height: 100%; }
+        body.light-theme {
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5568;
+            --accent-primary: #6c5ce7;
+            --accent-secondary: #a29bfe;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
 
         body {
-            background: linear-gradient(120deg, var(--bg-start), var(--bg-end));
-            color: #E6EEF3;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--bg-secondary);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 40px 20px;
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
         }
 
-        /* Arkaplan Glow */
-        .bg-glow {
-            position: fixed; right: -120px; top: -120px; width: 520px; height: 520px;
-            background: radial-gradient(circle at center, rgba(78,216,161,0.14) 0%, transparent 60%);
-            filter: blur(30px); z-index: 0;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .container {
-            width: 100%; max-width: 980px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 16px;
-            padding: 32px;
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            background: transparent;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .nav-btn:hover::before {
+            left: 0;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .login-btn {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .login-btn:hover {
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Game Interfaces */
+        .game-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 2rem;
+            border: 2px solid rgba(108, 92, 231, 0.3);
+        }
+
+        .back-btn:hover {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateX(-5px);
+        }
+
+        .game-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .score-board {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .score-item {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .score-item span {
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            border: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .numbers-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            background-color: rgba(108, 92, 231, 0.1);
+        }
+
+        .operator {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .answer-input {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .game-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(108, 92, 231, 0.2);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .game-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+        }
+
+        .check-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent-gradient);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feedback.correct {
+            background: rgba(46, 213, 115, 0.2);
+            color: #2ed573;
+            border: 2px solid #2ed573;
+        }
+
+        .feedback.incorrect {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+            border: 2px solid #ff4757;
+        }
+
+        .hint-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-primary);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .hint-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .hint-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Trigonometry Specific */
+        .trig-results {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 12px;
+            display: none;
+        }
+
+        .trig-results.show {
+            display: block;
+        }
+
+        .trig-result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        .trig-result-label {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .trig-result-value {
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        .special-angles {
+            margin-top: 1rem;
+        }
+
+        .angle-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: var(--text-secondary);
+        }
+
+        /* Triangle Specific */
+        .triangle-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .triangle-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid rgba(108, 92, 231, 0.2);
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .triangle-btn:hover {
+            border-color: var(--accent-primary);
+        }
+
+        .triangle-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .triangle-visual {
+            font-size: 5rem;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--accent-primary);
+        }
+
+        .triangle-ratios {
+            margin-top: 1.5rem;
+        }
+
+        .triangle-ratios p {
+            margin: 0.75rem 0;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .triangle-ratios .example {
+            color: var(--text-secondary);
+            font-style: italic;
+            background: rgba(108, 92, 231, 0.1);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .calculator-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(108, 92, 231, 0.2);
+        }
+
+        .calculator-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .triangle-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .solution-display {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 12px;
+            display: none;
+        }
+
+        .solution-display.show {
+            display: block;
+        }
+
+        .solution-item {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        .solution-label {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .solution-value {
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-left: 0.5rem;
+        }
+
+        /* Quiz Options */
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .option-btn {
+            padding: 1.25rem 1.5rem;
+            border: 2px solid rgba(108, 92, 231, 0.3);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
             text-align: left;
-            box-shadow: 0 20px 60px rgba(2,6,23,0.6);
-            position: relative; z-index: 1;
+            position: relative;
         }
 
-        .site-header { display:flex; align-items:center; gap:16px; margin-bottom:18px; }
-        .site-header { flex-wrap:wrap; }
-        .logo-mark {
-            width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #031018; font-weight:900; font-size:1.2rem;
-            box-shadow: 0 8px 30px rgba(78,216,161,0.12);
+        .option-btn:hover:not(.selected):not(.correct):not(.incorrect) {
+            border-color: var(--accent-primary);
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateX(5px);
         }
-        .logo-text h1 { font-size:1.5rem; font-weight:900; color: #FFFFFF; }
-        .logo-text p { color: var(--muted); font-size:0.9rem; margin-top:4px; }
 
-        .screen { display: none; animation: fadeIn 0.35s ease; position:relative; }
-        .screen.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-        h2 { font-size:1.25rem; font-weight:800; color:#fff; margin:8px 0 6px; }
-
-        /* Ana Menü Kartları */
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 18px; margin-top: 18px; }
-        
-        @media (max-width:480px) {
-            .site-header #best-score { display:none; }
+        .option-btn.selected {
+            border-color: var(--accent-primary);
+            background: rgba(108, 92, 231, 0.2);
         }
-        
+
+        .option-btn.correct {
+            background: rgba(46, 213, 115, 0.2);
+            border-color: #2ed573;
+            color: #2ed573;
+        }
+
+        .option-btn.incorrect {
+            background: rgba(255, 71, 87, 0.2);
+            border-color: #ff4757;
+            color: #ff4757;
+        }
+
+        .option-btn.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .next-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent-gradient);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+            margin-top: 1.5rem;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
+        }
+
+        /* Trigonometry Table */
+        .trig-table {
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+
+        .trig-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .trig-table th,
+        .trig-table td {
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+
+        .trig-table th {
+            background: var(--accent-gradient);
+            color: white;
+            font-weight: 700;
+        }
+
+        .trig-table td {
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Games Section */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
         .game-card {
-            background: var(--glass);
-            padding: 20px; border-radius: 12px; cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.02); transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s;
-            display:flex; gap:12px; align-items:center;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(108, 92, 231, 0.1);
         }
 
-        .game-card .icon { width:56px; height:56px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; color:#031018; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
-        .game-card .meta { text-align:left; }
-        .game-card h3 { color: #fff; margin-bottom:6px; font-size:1.05rem; }
-        .game-card p { color: var(--muted); font-size:0.88rem; }
-
-        .game-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(2,6,23,0.55); border-color: rgba(78,216,161,0.22); }
-        .game-card:focus-visible { outline: 3px solid rgba(125,211,252,0.08); outline-offset:4px; border-color: rgba(125,211,252,0.10); }
-
-        /* Oyun Alanı */
-        #display { font-size: 3.2rem; font-weight: 900; margin: 20px 0; color: #fff; text-shadow: 0 6px 18px rgba(78,216,161,0.08); }
-        .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap:wrap; }
-        
-        button.action {
-            padding: 12px 28px; border-radius: 9999px; border: none; font-size: 0.98rem; font-weight:700; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.12s ease; min-width:90px;
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: var(--transition);
         }
 
-        .btn-primary { background: linear-gradient(90deg,var(--accent),var(--accent-2)); color: #031018; box-shadow: 0 10px 30px rgba(78,216,161,0.12); }
-        .btn-secondary { background: transparent; color: #E6EEF3; border: 1px solid rgba(255,255,255,0.06); }
-        .btn-back { margin-top: 18px; display:inline-block; }
+        .game-card:hover::before {
+            transform: scaleX(1);
+        }
 
-        button.action:active { transform: translateY(2px); }
-        button.action:focus-visible { outline: 3px solid rgba(125,211,252,0.12); outline-offset:3px; }
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(108, 92, 231, 0.3);
+        }
 
-        #timer { width: 100%; height: 8px; background: rgba(255,255,255,0.04); border-radius: 999px; margin: 16px 0; overflow: hidden; }
-        #timer-fill { width: 100%; height: 100%; background: linear-gradient(90deg,var(--accent),var(--accent-2)); transition: width 0.15s linear; }
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.3);
+        }
 
-        .score-box { font-size: 1rem; color:var(--muted); margin-bottom: 6px; display:flex; align-items:center; gap:10px; }
-        .lives { display:inline-flex; gap:6px; align-items:center; }
-        .heart { color: #FF6B6B; font-size:1rem; opacity:1; transition: transform 0.15s ease; }
-        .heart.muted { opacity:0.25; transform: scale(0.95); }
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
 
-        /* Modal */
-        .modal.hidden { display:none; }
-        .modal { position:fixed; inset:0; background: rgba(2,6,23,0.6); display:flex; align-items:center; justify-content:center; z-index:50; }
-        .modal-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.03)); border-radius:12px; padding:20px; width:90%; max-width:360px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.04); }
-        .modal-card h2 { margin-bottom:6px; }
+        .game-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
 
+        /* Settings Section */
+        .settings-container {
+            max-width: 800px;
+        }
 
+        .setting-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            border: 1px solid rgba(108, 92, 231, 0.1);
+            transition: var(--transition);
+        }
 
+        .setting-card:hover {
+            box-shadow: 0 12px 40px rgba(108, 92, 231, 0.2);
+        }
 
-        /* small touch targets on mobile */
-        @media (max-width:480px) {
-            body { align-items:flex-start; padding-top:22px; padding-bottom:48px; }
-            .container { width:100%; margin:0 12px; border-radius:12px; box-shadow:none; }
-            button.action { padding:14px 18px; font-size:1rem; min-width:120px; width:100%; }
-            .menu-grid { gap:12px; grid-template-columns: 1fr; }
-            .logo-text h1 { font-size:1.1rem; }
-            #display { font-size:1.8rem; }
-            .btn-group { flex-direction:column; gap:12px; }
-            .settings-row label { gap:10px; }
+        .setting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .setting-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .setting-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .theme-options {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .theme-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid rgba(108, 92, 231, 0.2);
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .theme-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .theme-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Login Section */
+        .login-container {
+            max-width: 500px;
+            margin: 4rem auto;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            border: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(108, 92, 231, 0.2);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent-gradient);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
         }
 
         /* Responsive */
-        @media (max-width:600px) {
-            .container { padding: 18px; border-radius: 12px; }
-            .logo-mark { width:48px; height:48px; }
-            #display { font-size: 2.2rem; }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-menu {
+                gap: 0.5rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .game-card {
+                padding: 1.5rem;
+            }
+
+            .game-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .game-title {
+                font-size: 1.3rem;
+            }
+
+            .theme-options {
+                flex-direction: column;
+            }
+
+            .setting-card {
+                padding: 1.5rem;
+            }
+
+            /* Game Interface Mobile */
+            .question-card {
+                padding: 1.5rem;
+            }
+
+            .numbers-display {
+                gap: 1rem;
+            }
+
+            .number {
+                font-size: 2rem;
+                padding: 0.75rem 1.5rem;
+            }
+
+            .answer-input {
+                flex-direction: column;
+            }
+
+            .game-input {
+                font-size: 1rem;
+            }
+
+            .score-board {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .triangle-selector {
+                flex-direction: column;
+            }
+
+            .triangle-visual {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-btn {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .game-card {
+                padding: 1.2rem;
+            }
+
+            .game-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+
+            .game-title {
+                font-size: 1.2rem;
+            }
+
+            .game-description {
+                font-size: 0.9rem;
+            }
+
+            .question-card {
+                padding: 1rem;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .number {
+                font-size: 1.8rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .operator {
+                font-size: 1.2rem;
+            }
+
+            .check-btn {
+                padding: 0.85rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .back-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
+
 <body>
-
-<div class="bg-glow"></div>
-
-<div class="container">
-        <div id="menu-screen" class="screen active">
-            <div class="site-header">
-                <div class="logo-mark">MV</div>
-                <div class="logo-text">
-                    <h1>MathVerse</h1>
-                    <p>Matematik Oyun Portalı</p>
-                </div>
-                <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
-                    <div style="color:var(--muted); font-size:0.9rem;" id="best-score">En İyi: 0</div>
-                    <div style="color:var(--muted); font-size:0.9rem;">v1.0</div>
-                </div>
-            </div>
-            <div class="menu-grid">
-            <div class="game-card" role="button" tabindex="0" aria-label="Özel Üçgen oyunu" onclick="startGame('triangle')">
-                <div class="icon">∆</div>
-                <div class="meta"><h3>Özel Üçgen mi?</h3>
-                <p>Kenarlara bak, Pisagor'u sağla!</p></div>
-            </div>
-            <div class="game-card" role="button" tabindex="0" aria-label="Trigonometri oyunu" onclick="startGame('trig')">
-                <div class="icon">sin</div>
-                <div class="meta"><h3>Trigo-Tahmin</h3>
-                <p>Açıların değerini biliyor musun?</p></div>
-            </div>
-            <div class="game-card" role="button" tabindex="0" aria-label="EBOB oyunu" onclick="startGame('ebob')">
-                <div class="icon">⋂</div>
-                <div class="meta"><h3>Hızlı EBOB</h3>
-                <p>En büyük ortak böleni bul!</p></div>
-            </div>
-            <div class="game-card" role="button" tabindex="0" aria-label="EKOK oyunu" onclick="startGame('ekok')">
-                <div class="icon">∪</div>
-                <div class="meta"><h3>EKOK Hızlı</h3>
-                <p>En küçük ortak katı bulun!</p></div>
-            </div>
-
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="showSection('games')">📐 MATEMATİK PORTALI</div>
+            <ul class="nav-menu">
+                <li><button class="nav-btn active" onclick="showSection('games')" id="nav-games">Matematik
+                        Oyunları</button></li>
+                <li><button class="nav-btn" onclick="showSection('settings')" id="nav-settings">Ayarlar</button></li>
+            </ul>
         </div>
-    </div>
+    </nav>
 
-    <div id="game-screen" class="screen">
-        <div class="score-box">Puan: <span id="score">0</span> <span id="lives" class="lives" aria-live="polite"></span></div>
-        <div id="timer"><div id="timer-fill"></div></div>
-        <h2 id="game-title">Oyun Başlığı</h2>
-        <div id="display">0 - 0 - 0</div>
-        <div class="btn-group" id="btn-container">
+    <div class="container">
+        <!-- Games Section -->
+        <section id="games-section" class="page-section active">
+            <h1 class="section-title">10. Sınıf Matematik Konuları</h1>
+            <div class="games-grid">
+                <div class="game-card" onclick="openTopic('ebob')">
+                    <div class="game-icon">🔢</div>
+                    <h3 class="game-title">EBOB Bulma</h3>
+                    <p class="game-description">En Büyük Ortak Bölen (EBOB) hesaplama alıştırmaları yapın ve pratik
+                        kazanın!</p>
+                </div>
+                <div class="game-card" onclick="openTopic('ekok')">
+                    <div class="game-icon">➗</div>
+                    <h3 class="game-title">EKOK Bulma</h3>
+                    <p class="game-description">En Küçük Ortak Kat (EKOK) problemlerini çözün ve ustalaşın!</p>
+                </div>
+                <div class="game-card" onclick="openTopic('sin')">
+                    <div class="game-icon">📊</div>
+                    <h3 class="game-title">Sinüs (Sin)</h3>
+                    <p class="game-description">Trigonometri: Sinüs fonksiyonu ve açı hesaplamaları öğrenin!</p>
+                </div>
+                <div class="game-card" onclick="openTopic('cos')">
+                    <div class="game-icon">📈</div>
+                    <h3 class="game-title">Kosinüs (Cos)</h3>
+                    <p class="game-description">Trigonometri: Kosinüs fonksiyonu ile açı ve kenar hesaplamaları!</p>
+                </div>
+                <div class="game-card" onclick="openTopic('tan')">
+                    <div class="game-icon">📉</div>
+                    <h3 class="game-title">Tanjant (Tan)</h3>
+                    <p class="game-description">Trigonometri: Tanjant fonksiyonu ve uygulamaları!</p>
+                </div>
+                <div class="game-card" onclick="openTopic('ozel-ucgen')">
+                    <div class="game-icon">△</div>
+                    <h3 class="game-title">Özel Üçgenler</h3>
+                    <p class="game-description">30-60-90 ve 45-45-90 özel üçgenlerini keşfedin!</p>
+                </div>
+                <div class="game-card" onclick="openTopic('trigonometri')">
+                    <div class="game-icon">🎯</div>
+                    <h3 class="game-title">Trigonometri Genel</h3>
+                    <p class="game-description">Tüm trigonometrik fonksiyonları ve birim çemberi öğrenin!</p>
+                </div>
+                <div class="game-card" onclick="openTopic('ucgen-cozum')">
+                    <div class="game-icon">📐</div>
+                    <h3 class="game-title">Üçgen Çözümleri</h3>
+                    <p class="game-description">Dik üçgenlerde kenar ve açı hesaplama problemleri!</p>
+                </div>
             </div>
-        <button class="action btn-secondary btn-back" onclick="showMenu()">Menüye Geri Dön</button>
-    </div>
+        </section>
 
-    <div id="game-over-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <div class="modal-card">
-            <h2 id="modal-title">Oyun Bitti</h2>
-            <p id="modal-msg">Skorunuz: <span id="modal-score">0</span></p>
-            <div style="display:flex; gap:10px; justify-content:center; margin-top:12px;">
-                <button class="action btn-primary" id="retry-btn">Tekrar Oyna</button>
-                <button class="action btn-secondary" id="menu-btn">Ana Menü</button>
+        <!-- EBOB Game -->
+        <section id="ebob-game" class="page-section">
+            <div class="game-container">
+                <button class="back-btn" onclick="showSection('games')">← Geri Dön</button>
+                <h1 class="section-title">EBOB Bulma Testi</h1>
+                <div class="game-content">
+                    <div class="score-board">
+                        <div class="score-item">Skor: <span id="ebob-score">0</span></div>
+                        <div class="score-item">Doğru: <span id="ebob-correct">0</span> / <span id="ebob-total">0</span>
+                        </div>
+                    </div>
+                    <div class="question-card">
+                        <h3 class="question-text" id="ebob-question">Soru yükleniyor...</h3>
+                        <div class="options-container" id="ebob-options">
+                            <!-- Options will be inserted here -->
+                        </div>
+                        <div id="ebob-feedback" class="feedback"></div>
+                        <button class="next-btn" onclick="generateEbobQuestion()" style="display:none;"
+                            id="ebob-next">Sonraki Soru →</button>
+                    </div>
+                    <div class="hint-card">
+                        <h4>💡 EBOB Nedir?</h4>
+                        <p>En Büyük Ortak Bölen (EBOB), iki veya daha fazla sayıyı tam bölen en büyük pozitif tam
+                            sayıdır.</p>
+                        <p><strong>Örnek:</strong> 12 ve 18'in EBOB'u = 6 (çünkü 12 = 6×2 ve 18 = 6×3)</p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- EKOK Game -->
+        <section id="ekok-game" class="page-section">
+            <div class="game-container">
+                <button class="back-btn" onclick="showSection('games')">← Geri Dön</button>
+                <h1 class="section-title">EKOK Bulma Testi</h1>
+                <div class="game-content">
+                    <div class="score-board">
+                        <div class="score-item">Skor: <span id="ekok-score">0</span></div>
+                        <div class="score-item">Doğru: <span id="ekok-correct">0</span> / <span id="ekok-total">0</span>
+                        </div>
+                    </div>
+                    <div class="question-card">
+                        <h3 class="question-text" id="ekok-question">Soru yükleniyor...</h3>
+                        <div class="options-container" id="ekok-options">
+                            <!-- Options will be inserted here -->
+                        </div>
+                        <div id="ekok-feedback" class="feedback"></div>
+                        <button class="next-btn" onclick="generateEkokQuestion()" style="display:none;"
+                            id="ekok-next">Sonraki Soru →</button>
+                    </div>
+                    <div class="hint-card">
+                        <h4>💡 EKOK Nedir?</h4>
+                        <p>En Küçük Ortak Kat (EKOK), iki veya daha fazla sayının katı olan en küçük pozitif tam
+                            sayıdır.</p>
+                        <p><strong>Örnek:</strong> 4 ve 6'nın EKOK'u = 12 (çünkü 12, hem 4'ün hem de 6'nın katıdır)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trigonometry Game -->
+        <section id="trig-game" class="page-section">
+            <div class="game-container">
+                <button class="back-btn" onclick="showSection('games')">← Geri Dön</button>
+                <h1 class="section-title">Trigonometri Testi</h1>
+                <div class="game-content">
+                    <div class="score-board">
+                        <div class="score-item">Skor: <span id="trig-score">0</span></div>
+                        <div class="score-item">Doğru: <span id="trig-correct">0</span> / <span id="trig-total">0</span>
+                        </div>
+                    </div>
+                    <div class="question-card">
+                        <h3 class="question-text" id="trig-question">Soru yükleniyor...</h3>
+                        <div class="options-container" id="trig-options">
+                            <!-- Options will be inserted here -->
+                        </div>
+                        <div id="trig-feedback" class="feedback"></div>
+                        <button class="next-btn" onclick="generateTrigQuestion()" style="display:none;"
+                            id="trig-next">Sonraki Soru →</button>
+                    </div>
+                    <div class="hint-card">
+                        <h4>📐 Özel Açılar Tablosu:</h4>
+                        <div class="trig-table">
+                            <table>
+                                <tr>
+                                    <th>Açı</th>
+                                    <th>sin</th>
+                                    <th>cos</th>
+                                    <th>tan</th>
+                                </tr>
+                                <tr>
+                                    <td>30°</td>
+                                    <td>1/2</td>
+                                    <td>√3/2</td>
+                                    <td>√3/3</td>
+                                </tr>
+                                <tr>
+                                    <td>45°</td>
+                                    <td>√2/2</td>
+                                    <td>√2/2</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>60°</td>
+                                    <td>√3/2</td>
+                                    <td>1/2</td>
+                                    <td>√3</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Special Triangles Game -->
+        <section id="special-triangle-game" class="page-section">
+            <div class="game-container">
+                <button class="back-btn" onclick="showSection('games')">← Geri Dön</button>
+                <h1 class="section-title">Özel Üçgenler Testi</h1>
+                <div class="game-content">
+                    <div class="score-board">
+                        <div class="score-item">Skor: <span id="triangle-score">0</span></div>
+                        <div class="score-item">Doğru: <span id="triangle-correct">0</span> / <span
+                                id="triangle-total">0</span></div>
+                    </div>
+                    <div class="question-card">
+                        <h3 class="question-text" id="triangle-question">Soru yükleniyor...</h3>
+                        <div class="options-container" id="triangle-options">
+                            <!-- Options will be inserted here -->
+                        </div>
+                        <div id="triangle-feedback" class="feedback"></div>
+                        <button class="next-btn" onclick="generateTriangleQuestion()" style="display:none;"
+                            id="triangle-next">Sonraki Soru →</button>
+                    </div>
+                    <div class="hint-card">
+                        <h4>📐 Özel Üçgen Oranları:</h4>
+                        <p><strong>30-60-90 Üçgeni:</strong></p>
+                        <p>Kenar oranları → 1 : √3 : 2</p>
+                        <p><strong>45-45-90 Üçgeni:</strong></p>
+                        <p>Kenar oranları → 1 : 1 : √2</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Triangle Solution Game -->
+        <section id="triangle-solution-game" class="page-section">
+            <div class="game-container">
+                <button class="back-btn" onclick="showSection('games')">← Geri Dön</button>
+                <h1 class="section-title">Dik Üçgen Problemleri</h1>
+                <div class="game-content">
+                    <div class="score-board">
+                        <div class="score-item">Skor: <span id="solution-score">0</span></div>
+                        <div class="score-item">Doğru: <span id="solution-correct">0</span> / <span
+                                id="solution-total">0</span></div>
+                    </div>
+                    <div class="question-card">
+                        <h3 class="question-text" id="solution-question">Soru yükleniyor...</h3>
+                        <div class="options-container" id="solution-options">
+                            <!-- Options will be inserted here -->
+                        </div>
+                        <div id="solution-feedback" class="feedback"></div>
+                        <button class="next-btn" onclick="generateSolutionQuestion()" style="display:none;"
+                            id="solution-next">Sonraki Soru →</button>
+                    </div>
+                    <div class="hint-card">
+                        <h4>📐 Pisagor Teoremi:</h4>
+                        <p>Dik üçgende: <strong>a² + b² = c²</strong></p>
+                        <p>a, b: Dik kenarlar</p>
+                        <p>c: Hipotenüs (en uzun kenar)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings-section" class="page-section">
+            <h1 class="section-title">Ayarlar</h1>
+            <div class="settings-container">
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <h3 class="setting-title">Tema Seçimi</h3>
+                    </div>
+                    <p class="setting-description">Görünümünüzü kişiselleştirin ve gözlerinize uygun temayı seçin.</p>
+                    <div class="theme-options">
+                        <button class="theme-btn active" onclick="setTheme('dark')" id="dark-theme-btn">
+                            <span class="theme-icon">🌙</span>
+                            <span>Koyu Tema</span>
+                        </button>
+                        <button class="theme-btn" onclick="setTheme('light')" id="light-theme-btn">
+                            <span class="theme-icon">☀️</span>
+                            <span>Açık Tema</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <h3 class="setting-title">Ses Ayarları</h3>
+                    </div>
+                    <p class="setting-description">Oyun seslerini ve müziği ayarlayın.</p>
+                    <div class="theme-options">
+                        <button class="theme-btn active" onclick="toggleSound('on')">
+                            <span class="theme-icon">🔊</span>
+                            <span>Ses Açık</span>
+                        </button>
+                        <button class="theme-btn" onclick="toggleSound('off')">
+                            <span class="theme-icon">🔇</span>
+                            <span>Ses Kapalı</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <h3 class="setting-title">Bildirimler</h3>
+                    </div>
+                    <p class="setting-description">Oyun bildirimleri ve güncellemeler hakkında bilgi alın.</p>
+                    <div class="theme-options">
+                        <button class="theme-btn active" onclick="toggleNotifications('on')">
+                            <span class="theme-icon">🔔</span>
+                            <span>Bildirimler Açık</span>
+                        </button>
+                        <button class="theme-btn" onclick="toggleNotifications('off')">
+                            <span class="theme-icon">🔕</span>
+                            <span>Bildirimler Kapalı</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
     </div>
 
-</div>
-
-<script>
-    let currentMode = '';
-    let score = 0;
-    let correctAnswer = null;
-    let timerInterval;
-    let timeLeft = 100;
-    let maxLives = 3;
-    let lives = maxLives;
-    let settings = { sound: true, difficulty: 'normal' };
-
-    // Erişilebilirlik: kartlar Enter/Space ile tetiklenebilir
-    function attachCardKeyboard() {
-        document.querySelectorAll('.game-card').forEach(el => {
-            el.addEventListener('keydown', e => {
-                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+    <script>
+        // Section Navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
             });
+
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.add('active');
+
+            // Add active class to clicked nav button
+            document.getElementById('nav-' + sectionName).classList.add('active');
+        }
+
+        // Theme Management
+        function setTheme(theme) {
+            const body = document.body;
+            const darkBtn = document.getElementById('dark-theme-btn');
+            const lightBtn = document.getElementById('light-theme-btn');
+
+            if (theme === 'light') {
+                body.classList.add('light-theme');
+                darkBtn.classList.remove('active');
+                lightBtn.classList.add('active');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                darkBtn.classList.add('active');
+                lightBtn.classList.remove('active');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                setTheme('light');
+            }
         });
-    }
-    window.addEventListener('DOMContentLoaded', () => {
-        attachCardKeyboard();
-        document.getElementById('retry-btn')?.addEventListener('click', () => { hideGameOver(); startGame(currentMode); });
-        document.getElementById('menu-btn')?.addEventListener('click', () => { hideGameOver(); showMenu(); });
 
-        updateLivesUI();
-    });
+        // Sound Toggle
+        function toggleSound(state) {
+            const buttons = document.querySelectorAll('#settings-section .setting-card:nth-child(2) .theme-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
 
-    function playSound(type) {
-        if (!settings.sound) return;
-        try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const o = ctx.createOscillator();
-            const g = ctx.createGain();
-            o.connect(g); g.connect(ctx.destination);
-            if (type === 'correct') { o.frequency.value = 800; g.gain.value = 0.03; }
-            else { o.frequency.value = 220; g.gain.value = 0.04; }
-            o.start(); setTimeout(() => { o.stop(); ctx.close(); }, 120);
-        } catch (e) { /* ignore */ }
-    }
-
-    function updateLivesUI() {
-        const el = document.getElementById('lives');
-        if(!el) return;
-        el.innerHTML = '';
-        for (let i=0;i<lives;i++) el.innerHTML += '<span class="heart">❤</span>';
-        for (let i=lives;i<maxLives;i++) el.innerHTML += '<span class="heart muted">❤</span>';
-    }
-
-    function showGameOver() {
-        clearInterval(timerInterval);
-        document.getElementById('modal-score').innerText = score;
-        const modal = document.getElementById('game-over-modal');
-        modal.classList.remove('hidden');
-        document.getElementById('retry-btn').focus();
-    }
-    function hideGameOver() { document.getElementById('game-over-modal').classList.add('hidden'); }
-
-
-
-    function showMenu() {
-        clearInterval(timerInterval);
-        document.getElementById('menu-screen').classList.add('active');
-        document.getElementById('game-screen').classList.remove('active');
-        hideGameOver();
-    }
-
-    function startGame(mode) {
-        currentMode = mode;
-        score = 0;
-        lives = maxLives;
-        updateLivesUI();
-        document.getElementById('score').innerText = score;
-        try { const key = 'best_' + mode; const b = parseInt(localStorage.getItem(key) || '0', 10); document.getElementById('best-score').innerText = 'En İyi: ' + b; } catch(e) {}
-        document.getElementById('menu-screen').classList.remove('active');
-        document.getElementById('game-screen').classList.add('active');
-        hideGameOver();
-        generateQuestion();
-    }
-
-    function startTimer() {
-        clearInterval(timerInterval);
-        const difficultyMap = { easy: {dec:1, interval:180, total:120}, normal: {dec:2, interval:150, total:100}, hard: {dec:3, interval:120, total:80} };
-        const cfg = difficultyMap[settings.difficulty] || difficultyMap.normal;
-        timeLeft = cfg.total;
-        const dec = cfg.dec;
-        const interval = cfg.interval;
-        document.getElementById('timer-fill').style.width = timeLeft + "%";
-        timerInterval = setInterval(() => {
-            timeLeft -= dec;
-            if (timeLeft < 0) timeLeft = 0;
-            document.getElementById('timer-fill').style.width = timeLeft + "%";
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                showGameOver();
-            }
-        }, interval);
-    }
-
-    function generateQuestion() {
-        startTimer();
-        const display = document.getElementById('display');
-        const btnContainer = document.getElementById('btn-container');
-        btnContainer.innerHTML = '';
-
-        if(currentMode === 'triangle') {
-            document.getElementById('game-title').innerText = "Özel Üçgen Kontrolü";
-            let isSpecial = Math.random() > 0.5;
-            if(isSpecial) {
-                let tris = [[3,4,5], [5,12,13], [8,15,17], [6,8,10]];
-                let choice = tris[Math.floor(Math.random()*tris.length)];
-                display.innerText = choice.join(" - ");
-                correctAnswer = true;
+            if (state === 'on') {
+                buttons[0].classList.add('active');
             } else {
-                let a = Math.floor(Math.random()*10)+2;
-                let b = Math.floor(Math.random()*10)+2;
-                display.innerText = `${a} - ${b} - ${a+b+1}`;
-                correctAnswer = false;
+                buttons[1].classList.add('active');
             }
-            btnContainer.innerHTML = `
-                <button class="action btn-primary" onclick="checkAnswer(true)">EVET</button>
-                <button class="action btn-primary" onclick="checkAnswer(false)">HAYIR</button>
-            `;
-        } 
-        
-        else if(currentMode === 'trig') {
-            document.getElementById('game-title').innerText = "Sinüs Değerini Bul";
-            let angles = [0, 30, 45, 60, 90];
-            let values = ["0", "1/2", "√2/2", "√3/2", "1"];
-            let idx = Math.floor(Math.random()*angles.length);
-            display.innerText = "sin(" + angles[idx] + "°)";
-            correctAnswer = values[idx];
-            
-            values.forEach(v => {
-                btnContainer.innerHTML += `<button class="action btn-primary" onclick="checkAnswer('${v}')">${v}</button>`;
-            });
+
+            localStorage.setItem('sound', state);
         }
 
-        else if(currentMode === 'ebob') {
-            document.getElementById('game-title').innerText = "EBOB Kaçtır?";
-            let n1 = 12, n2 = 18; // Örnek sayılar
-            n1 = (Math.floor(Math.random()*5)+1) * 6;
-            n2 = (Math.floor(Math.random()*5)+1) * 6;
-            display.innerText = `${n1} , ${n2}`;
-            
-            const findEbob = (a, b) => b === 0 ? a : findEbob(b, a % b);
-            correctAnswer = findEbob(n1, n2);
+        // Notifications Toggle
+        function toggleNotifications(state) {
+            const buttons = document.querySelectorAll('#settings-section .setting-card:nth-child(3) .theme-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
 
-            let options = [correctAnswer, correctAnswer + 2, Math.abs(correctAnswer - 2), 2];
-            options = [...new Set(options)].sort(() => Math.random() - 0.5);
-
-            options.forEach(o => {
-                btnContainer.innerHTML += `<button class="action btn-primary" onclick="checkAnswer(${o})">${o}</button>`;
-            });
-        }
-        else if(currentMode === 'ekok') {
-            document.getElementById('game-title').innerText = "EKOK Kaçtır?";
-            let n1 = (Math.floor(Math.random()*8)+2) * (Math.floor(Math.random()*5)+1);
-            let n2 = (Math.floor(Math.random()*8)+2) * (Math.floor(Math.random()*5)+1);
-            display.innerText = `${n1} , ${n2}`;
-            const gcd = (a,b) => b === 0 ? a : gcd(b, a % b);
-            const lcm = (a,b) => Math.abs(a*b)/gcd(a,b);
-            correctAnswer = lcm(n1,n2);
-            let opts = [correctAnswer, correctAnswer + 2, Math.abs(correctAnswer - 3), 3];
-            opts = [...new Set(opts)].sort(() => Math.random() - 0.5);
-            opts.forEach(o => {
-                btnContainer.innerHTML += `<button class="action btn-primary" onclick="checkAnswer(${o})">${o}</button>`;
-            });
-        }
-    }
-
-    function checkAnswer(userAns) {
-        if (userAns === correctAnswer) {
-            score += 10;
-            document.getElementById('score').innerText = score;
-            // update best score per mode
-            try {
-                const key = 'best_' + currentMode;
-                const prev = parseInt(localStorage.getItem(key) || '0', 10);
-                if (score > prev) { localStorage.setItem(key, String(score)); document.getElementById('best-score').innerText = 'En İyi: ' + score; }
-            } catch (e) {}
-            playSound('correct');
-            generateQuestion();
-        } else {
-            lives -= 1;
-            updateLivesUI();
-            playSound('wrong');
-            if (lives <= 0) {
-                showGameOver();
+            if (state === 'on') {
+                buttons[0].classList.add('active');
             } else {
-                const d = document.getElementById('display');
-                d.style.transition = 'transform 0.12s'; d.style.transform = 'translateY(-6px)'; d.style.color = '#FF6B6B';
-                setTimeout(() => { d.style.transform = ''; d.style.color = ''; }, 220);
-                setTimeout(generateQuestion, 600);
+                buttons[1].classList.add('active');
+            }
+
+            localStorage.setItem('notifications', state);
+        }
+
+        // Open Math Topic - Navigate to game
+        function openTopic(topic) {
+            const gameMap = {
+                'ebob': 'ebob-game',
+                'ekok': 'ekok-game',
+                'sin': 'trig-game',
+                'cos': 'trig-game',
+                'tan': 'trig-game',
+                'ozel-ucgen': 'special-triangle-game',
+                'trigonometri': 'trig-game',
+                'ucgen-cozum': 'triangle-solution-game'
+            };
+
+            const gamePage = gameMap[topic];
+            if (gamePage) {
+                showGameSection(gamePage);
+
+                // Initialize game
+                if (topic === 'ebob') {
+                    resetEbobGame();
+                    generateEbobQuestion();
+                } else if (topic === 'ekok') {
+                    resetEkokGame();
+                    generateEkokQuestion();
+                } else if (topic.includes('trig') || topic === 'sin' || topic === 'cos' || topic === 'tan') {
+                    resetTrigGame();
+                    generateTrigQuestion();
+                } else if (topic === 'ozel-ucgen') {
+                    resetTriangleGame();
+                    generateTriangleQuestion();
+                } else if (topic === 'ucgen-cozum') {
+                    resetSolutionGame();
+                    generateSolutionQuestion();
+                }
             }
         }
-    }
-</script>
+
+        // Show game section
+        function showGameSection(sectionName) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionName).classList.add('active');
+        }
+
+        // Helper functions
+        function gcd(a, b) {
+            return b === 0 ? a : gcd(b, a % b);
+        }
+
+        function lcm(a, b) {
+            return (a * b) / gcd(a, b);
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // EBOB Quiz Game
+        let ebobScore = 0, ebobCorrect = 0, ebobTotal = 0, currentEbobAnswer = 0;
+
+        function resetEbobGame() {
+            ebobScore = 0;
+            ebobCorrect = 0;
+            ebobTotal = 0;
+            document.getElementById('ebob-score').textContent = '0';
+            document.getElementById('ebob-correct').textContent = '0';
+            document.getElementById('ebob-total').textContent = '0';
+        }
+
+        function generateEbobQuestion() {
+            document.getElementById('ebob-next').style.display = 'none';
+            document.getElementById('ebob-feedback').textContent = '';
+            document.getElementById('ebob-feedback').className = 'feedback';
+
+            const questionTypes = [
+                () => {
+                    const num1 = Math.floor(Math.random() * 40) + 10;
+                    const num2 = Math.floor(Math.random() * 40) + 10;
+                    const answer = gcd(num1, num2);
+                    const options = generateOptions(answer, [answer - 2, answer - 1, answer + 1, answer + 2, Math.floor(answer / 2)]);
+                    return {
+                        question: `${num1} ve ${num2} sayılarının EBOB'u kaçtır?`,
+                        answer: answer,
+                        options: options
+                    };
+                },
+                () => {
+                    const num1 = Math.floor(Math.random() * 30) + 15;
+                    const num2 = num1 * 2;
+                    const answer = gcd(num1, num2);
+                    const options = generateOptions(answer, [answer / 2, answer * 2, num1, num2]);
+                    return {
+                        question: `${num1} ve ${num2} sayılarının en büyük ortak böleni nedir?`,
+                        answer: answer,
+                        options: options
+                    };
+                }
+            ];
+
+            const q = questionTypes[Math.floor(Math.random() * questionTypes.length)]();
+            currentEbobAnswer = q.answer;
+
+            document.getElementById('ebob-question').textContent = q.question;
+            const optionsHtml = q.options.map(opt =>
+                `<button class="option-btn" onclick="checkEbobAnswer(${opt})">${opt}</button>`
+            ).join('');
+            document.getElementById('ebob-options').innerHTML = optionsHtml;
+        }
+
+        function checkEbobAnswer(selected) {
+            ebobTotal++;
+            document.getElementById('ebob-total').textContent = ebobTotal;
+
+            const buttons = document.querySelectorAll('#ebob-options .option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                btn.onclick = null;
+                const value = parseInt(btn.textContent);
+                if (value === currentEbobAnswer) {
+                    btn.classList.add('correct');
+                } else if (value === selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            const feedback = document.getElementById('ebob-feedback');
+            if (selected === currentEbobAnswer) {
+                ebobScore += 10;
+                ebobCorrect++;
+                feedback.textContent = '🎉 Doğru! +10 puan';
+                feedback.className = 'feedback correct';
+                document.getElementById('ebob-score').textContent = ebobScore;
+                document.getElementById('ebob-correct').textContent = ebobCorrect;
+            } else {
+                feedback.textContent = `❌ Yanlış! Doğru cevap: ${currentEbobAnswer}`;
+                feedback.className = 'feedback incorrect';
+            }
+
+            document.getElementById('ebob-next').style.display = 'block';
+        }
+
+        // EKOK Quiz Game
+        let ekokScore = 0, ekokCorrect = 0, ekokTotal = 0, currentEkokAnswer = 0;
+
+        function resetEkokGame() {
+            ekokScore = 0;
+            ekokCorrect = 0;
+            ekokTotal = 0;
+            document.getElementById('ekok-score').textContent = '0';
+            document.getElementById('ekok-correct').textContent = '0';
+            document.getElementById('ekok-total').textContent = '0';
+        }
+
+        function generateEkokQuestion() {
+            document.getElementById('ekok-next').style.display = 'none';
+            document.getElementById('ekok-feedback').textContent = '';
+            document.getElementById('ekok-feedback').className = 'feedback';
+
+            const questionTypes = [
+                () => {
+                    const num1 = Math.floor(Math.random() * 15) + 5;
+                    const num2 = Math.floor(Math.random() * 15) + 5;
+                    const answer = lcm(num1, num2);
+                    const options = generateOptions(answer, [answer - 5, answer + 5, num1 * num2, gcd(num1, num2)]);
+                    return {
+                        question: `${num1} ve ${num2} sayılarının EKOK'u kaçtır?`,
+                        answer: answer,
+                        options: options
+                    };
+                },
+                () => {
+                    const num1 = Math.floor(Math.random() * 10) + 4;
+                    const num2 = Math.floor(Math.random() * 10) + 4;
+                    const answer = lcm(num1, num2);
+                    const options = generateOptions(answer, [answer / 2, answer * 2, num1 + num2, num1 * num2]);
+                    return {
+                        question: `${num1} ve ${num2}'nın en küçük ortak katı nedir?`,
+                        answer: answer,
+                        options: options
+                    };
+                }
+            ];
+
+            const q = questionTypes[Math.floor(Math.random() * questionTypes.length)]();
+            currentEkokAnswer = q.answer;
+
+            document.getElementById('ekok-question').textContent = q.question;
+            const optionsHtml = q.options.map(opt =>
+                `<button class="option-btn" onclick="checkEkokAnswer(${opt})">${opt}</button>`
+            ).join('');
+            document.getElementById('ekok-options').innerHTML = optionsHtml;
+        }
+
+        function checkEkokAnswer(selected) {
+            ekokTotal++;
+            document.getElementById('ekok-total').textContent = ekokTotal;
+
+            const buttons = document.querySelectorAll('#ekok-options .option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                btn.onclick = null;
+                const value = parseInt(btn.textContent);
+                if (value === currentEkokAnswer) {
+                    btn.classList.add('correct');
+                } else if (value === selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            const feedback = document.getElementById('ekok-feedback');
+            if (selected === currentEkokAnswer) {
+                ekokScore += 10;
+                ekokCorrect++;
+                feedback.textContent = '🎉 Doğru! +10 puan';
+                feedback.className = 'feedback correct';
+                document.getElementById('ekok-score').textContent = ekokScore;
+                document.getElementById('ekok-correct').textContent = ekokCorrect;
+            } else {
+                feedback.textContent = `❌ Yanlış! Doğru cevap: ${currentEkokAnswer}`;
+                feedback.className = 'feedback incorrect';
+            }
+
+            document.getElementById('ekok-next').style.display = 'block';
+        }
+
+        // Trigonometry Quiz Game
+        let trigScore = 0, trigCorrect = 0, trigTotal = 0;
+        let currentTrigAnswer = '';
+
+        function resetTrigGame() {
+            trigScore = 0;
+            trigCorrect = 0;
+            trigTotal = 0;
+            document.getElementById('trig-score').textContent = '0';
+            document.getElementById('trig-correct').textContent = '0';
+            document.getElementById('trig-total').textContent = '0';
+        }
+
+        function generateTrigQuestion() {
+            document.getElementById('trig-next').style.display = 'none';
+            document.getElementById('trig-feedback').textContent = '';
+            document.getElementById('trig-feedback').className = 'feedback';
+
+            const questions = [
+                { q: 'sin(30°) değeri kaçtır?', a: '1/2', opts: ['1/2', '√2/2', '√3/2', '1'] },
+                { q: 'cos(60°) değeri kaçtır?', a: '1/2', opts: ['1/2', '√2/2', '√3/2', '0'] },
+                { q: 'tan(45°) değeri kaçtır?', a: '1', opts: ['1', '√3', '√3/3', '0'] },
+                { q: 'sin(45°) değeri kaçtır?', a: '√2/2', opts: ['√2/2', '1/2', '√3/2', '1'] },
+                { q: 'cos(30°) değeri kaçtır?', a: '√3/2', opts: ['√3/2', '1/2', '√2/2', '1'] },
+                { q: 'tan(60°) değeri kaçtır?', a: '√3', opts: ['√3', '1', '√3/3', '√2'] },
+                { q: 'sin(90°) değeri kaçtır?', a: '1', opts: ['1', '0', '√2/2', '1/2'] },
+                { q: 'cos(0°) değeri kaçtır?', a: '1', opts: ['1', '0', '1/2', '√3/2'] }
+            ];
+
+            const selected = questions[Math.floor(Math.random() * questions.length)];
+            currentTrigAnswer = selected.a;
+
+            document.getElementById('trig-question').textContent = selected.q;
+            const optionsHtml = shuffle([...selected.opts]).map(opt =>
+                `<button class="option-btn" onclick="checkTrigAnswer('${opt}')">${opt}</button>`
+            ).join('');
+            document.getElementById('trig-options').innerHTML = optionsHtml;
+        }
+
+        function checkTrigAnswer(selected) {
+            trigTotal++;
+            document.getElementById('trig-total').textContent = trigTotal;
+
+            const buttons = document.querySelectorAll('#trig-options .option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                btn.onclick = null;
+                if (btn.textContent === currentTrigAnswer) {
+                    btn.classList.add('correct');
+                } else if (btn.textContent === selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            const feedback = document.getElementById('trig-feedback');
+            if (selected === currentTrigAnswer) {
+                trigScore += 10;
+                trigCorrect++;
+                feedback.textContent = '🎉 Doğru! +10 puan';
+                feedback.className = 'feedback correct';
+                document.getElementById('trig-score').textContent = trigScore;
+                document.getElementById('trig-correct').textContent = trigCorrect;
+            } else {
+                feedback.textContent = `❌ Yanlış! Doğru cevap: ${currentTrigAnswer}`;
+                feedback.className = 'feedback incorrect';
+            }
+
+            document.getElementById('trig-next').style.display = 'block';
+        }
+
+        // Special Triangles Quiz
+        let triangleScore = 0, triangleCorrect = 0, triangleTotal = 0;
+        let currentTriangleAnswer = '';
+
+        function resetTriangleGame() {
+            triangleScore = 0;
+            triangleCorrect = 0;
+            triangleTotal = 0;
+            document.getElementById('triangle-score').textContent = '0';
+            document.getElementById('triangle-correct').textContent = '0';
+            document.getElementById('triangle-total').textContent = '0';
+        }
+
+        function generateTriangleQuestion() {
+            document.getElementById('triangle-next').style.display = 'none';
+            document.getElementById('triangle-feedback').textContent = '';
+            document.getElementById('triangle-feedback').className = 'feedback';
+
+            const questions = [
+                { q: '30-60-90 üçgeninde kenar oranları nedir?', a: '1 : √3 : 2', opts: ['1 : √3 : 2', '1 : 1 : √2', '1 : 2 : √3', '√2 : √2 : 2'] },
+                { q: '45-45-90 üçgeninde kenar oranları nedir?', a: '1 : 1 : √2', opts: ['1 : 1 : √2', '1 : √3 : 2', '1 : 2 : 3', '√3 : √3 : 2'] },
+                { q: '30-60-90 üçgeninde kısa kenar 4 ise hipotenüs kaçtır?', a: '8', opts: ['8', '4√2', '4√3', '12'] },
+                { q: '45-45-90 üçgeninde dik kenar 5 ise hipotenüs kaçtır?', a: '5√2', opts: ['5√2', '10', '5√3', '5'] },
+                { q: '30-60-90 üçgeninde kısa kenar 6 ise uzun kenar kaçtır?', a: '6√3', opts: ['6√3', '12', '6√2', '9'] },
+                { q: '45-45-90 üçgeninde hipotenüs 10 ise dik kenar kaçtır?', a: '5√2', opts: ['5√2', '5', '10√2', '10'] }
+            ];
+
+            const selected = questions[Math.floor(Math.random() * questions.length)];
+            currentTriangleAnswer = selected.a;
+
+            document.getElementById('triangle-question').textContent = selected.q;
+            const optionsHtml = shuffle([...selected.opts]).map(opt =>
+                `<button class="option-btn" onclick="checkTriangleAnswer('${opt}')">${opt}</button>`
+            ).join('');
+            document.getElementById('triangle-options').innerHTML = optionsHtml;
+        }
+
+        function checkTriangleAnswer(selected) {
+            triangleTotal++;
+            document.getElementById('triangle-total').textContent = triangleTotal;
+
+            const buttons = document.querySelectorAll('#triangle-options .option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                btn.onclick = null;
+                if (btn.textContent === currentTriangleAnswer) {
+                    btn.classList.add('correct');
+                } else if (btn.textContent === selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            const feedback = document.getElementById('triangle-feedback');
+            if (selected === currentTriangleAnswer) {
+                triangleScore += 10;
+                triangleCorrect++;
+                feedback.textContent = '🎉 Doğru! +10 puan';
+                feedback.className = 'feedback correct';
+                document.getElementById('triangle-score').textContent = triangleScore;
+                document.getElementById('triangle-correct').textContent = triangleCorrect;
+            } else {
+                feedback.textContent = `❌ Yanlış! Doğru cevap: ${currentTriangleAnswer}`;
+                feedback.className = 'feedback incorrect';
+            }
+
+            document.getElementById('triangle-next').style.display = 'block';
+        }
+
+        // Triangle Solution Quiz (Pythagorean)
+        let solutionScore = 0, solutionCorrect = 0, solutionTotal = 0;
+        let currentSolutionAnswer = 0;
+
+        function resetSolutionGame() {
+            solutionScore = 0;
+            solutionCorrect = 0;
+            solutionTotal = 0;
+            document.getElementById('solution-score').textContent = '0';
+            document.getElementById('solution-correct').textContent = '0';
+            document.getElementById('solution-total').textContent = '0';
+        }
+
+        function generateSolutionQuestion() {
+            document.getElementById('solution-next').style.display = 'none';
+            document.getElementById('solution-feedback').textContent = '';
+            document.getElementById('solution-feedback').className = 'feedback';
+
+            const questionTypes = [
+                () => {
+                    const a = Math.floor(Math.random() * 8) + 3;
+                    const b = Math.floor(Math.random() * 8) + 3;
+                    const c = Math.sqrt(a * a + b * b);
+                    const answer = Math.round(c);
+                    const options = generateOptions(answer, [answer - 1, answer + 1, a + b, Math.round(c * 1.5)]);
+                    return {
+                        question: `Dik kenarları ${a} ve ${b} olan bir dik üçgenin hipotenüsü yaklaşık kaç birimdir?`,
+                        answer: answer,
+                        options: options
+                    };
+                },
+                () => {
+                    const sides = [[3, 4, 5], [5, 12, 13], [8, 15, 17], [6, 8, 10]];
+                    const selected = sides[Math.floor(Math.random() * sides.length)];
+                    const answer = selected[2];
+                    const options = generateOptions(answer, [answer - 2, answer + 2, selected[0] + selected[1], answer * 2]);
+                    return {
+                        question: `Dik kenarları ${selected[0]} ve ${selected[1]} olan dik üçgenin hipotenüsü kaçtır?`,
+                        answer: answer,
+                        options: options
+                    };
+                }
+            ];
+
+            const q = questionTypes[Math.floor(Math.random() * questionTypes.length)]();
+            currentSolutionAnswer = q.answer;
+
+            document.getElementById('solution-question').textContent = q.question;
+            const optionsHtml = q.options.map(opt =>
+                `<button class="option-btn" onclick="checkSolutionAnswer(${opt})">${opt}</button>`
+            ).join('');
+            document.getElementById('solution-options').innerHTML = optionsHtml;
+        }
+
+        function checkSolutionAnswer(selected) {
+            solutionTotal++;
+            document.getElementById('solution-total').textContent = solutionTotal;
+
+            const buttons = document.querySelectorAll('#solution-options .option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                btn.onclick = null;
+                const value = parseInt(btn.textContent);
+                if (value === currentSolutionAnswer) {
+                    btn.classList.add('correct');
+                } else if (value === selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            const feedback = document.getElementById('solution-feedback');
+            if (selected === currentSolutionAnswer) {
+                solutionScore += 10;
+                solutionCorrect++;
+                feedback.textContent = '🎉 Doğru! +10 puan';
+                feedback.className = 'feedback correct';
+                document.getElementById('solution-score').textContent = solutionScore;
+                document.getElementById('solution-correct').textContent = solutionCorrect;
+            } else {
+                feedback.textContent = `❌ Yanlış! Doğru cevap: ${currentSolutionAnswer}`;
+                feedback.className = 'feedback incorrect';
+            }
+
+            document.getElementById('solution-next').style.display = 'block';
+        }
+
+        // Helper to generate unique options
+        function generateOptions(correct, others) {
+            const opts = new Set([correct]);
+            others.forEach(o => {
+                if (o > 0 && o !== correct) opts.add(Math.round(o));
+            });
+            while (opts.size < 4) {
+                const random = correct + Math.floor(Math.random() * 10) - 5;
+                if (random > 0) opts.add(random);
+            }
+            return shuffle(Array.from(opts).slice(0, 4));
+        }
+    </script>
 </body>
+
 </html>
